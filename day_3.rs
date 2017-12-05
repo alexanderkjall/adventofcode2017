@@ -1,4 +1,4 @@
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 struct Point {
     x: i32,
     y: i32,
@@ -79,8 +79,41 @@ fn point_at_pos_in_spiral(pos: i32) -> Point {
     return sp.next().unwrap();
 }
 
+fn point_value_larger_than(limit: i32) -> i32 {
+    let mut sp = Spiral::new();
+    let mut values = std::collections::HashMap::new();
+    let mut p = sp.curr;
+
+    values.insert(p, 1);
+
+    for _ in 0..(limit) {
+        p = sp.next().unwrap();
+
+        let mut sum = 0;
+
+        sum = sum + values.get(&Point {x: p.x + 1, y: p.y + 1}).unwrap_or(&0);
+        sum = sum + values.get(&Point {x: p.x + 1, y: p.y}).unwrap_or(&0);
+        sum = sum + values.get(&Point {x: p.x + 1, y: p.y - 1}).unwrap_or(&0);
+        sum = sum + values.get(&Point {x: p.x, y: p.y + 1}).unwrap_or(&0);
+        sum = sum + values.get(&Point {x: p.x, y: p.y - 1}).unwrap_or(&0);
+        sum = sum + values.get(&Point {x: p.x - 1, y: p.y + 1}).unwrap_or(&0);
+        sum = sum + values.get(&Point {x: p.x - 1, y: p.y}).unwrap_or(&0);
+        sum = sum + values.get(&Point {x: p.x - 1, y: p.y - 1}).unwrap_or(&0);
+
+        values.insert(p, sum);
+
+        if sum > limit {
+            return sum;
+        }
+    }
+
+    return -1;
+}
+
 fn main() {
     let p = point_at_pos_in_spiral(312051);
+    let lim = point_value_larger_than(312051);
 
     println!("answer day3 part1 = {0}", p.x.abs() + p.y.abs());
+    println!("answer day3 part2 = {0}", lim);
 }
