@@ -72,7 +72,7 @@ impl Iterator for Spiral {
 fn point_at_pos_in_spiral(pos: i32) -> Point {
     let mut sp = Spiral::new();
 
-    for i in 0..(pos - 2) {
+    for _ in 0..(pos - 2) {
         sp.next();
     }
 
@@ -81,7 +81,6 @@ fn point_at_pos_in_spiral(pos: i32) -> Point {
 
 fn main() {
     let p = point_at_pos_in_spiral(312051);
-    println!("{0}:{1}", p.x, p.y);
-    println!("answer day3 part1 = {0}", p.x.abs() + p.y.abs());
 
+    println!("answer day3 part1 = {0}", p.x.abs() + p.y.abs());
 }
