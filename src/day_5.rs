@@ -1,4 +1,4 @@
-use std::io::prelude::*;
+mod input;
 
 fn jump_around(mut instruction: Vec<i32>) -> i32 {
     let mut pos: i32 = 0;
@@ -29,11 +29,7 @@ fn jump_around_type_2(mut instruction: Vec<i32>) -> i32 {
 }
 
 fn main() {
-    let mut f = std::fs::File::open("day5-input").expect("file not found");
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
-        .expect("something went wrong reading the file");
+    let contents = input::file_to_string("day5-input");
 
     let rows = contents.split("\n");
 

@@ -1,11 +1,7 @@
-use std::io::prelude::*;
+mod input;
 
 fn main() {
-    let mut f = std::fs::File::open("day4-input").expect("file not found");
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
-        .expect("something went wrong reading the file");
+    let contents = input::file_to_string("day4-input");
 
     let mut sum_part_1 = 0;
     let mut sum_part_2 = 0;
