@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::HashMap;
 
 mod input;
 
@@ -36,15 +36,16 @@ fn main() {
 
     let mut nums = input::str_to_i32_vec(contents);
 
-    let mut old_state = HashSet::new();
+    let mut old_state = HashMap::new();
 
     let mut steps = 0;
-    while !old_state.contains(&nums) {
-        old_state.insert(nums.clone());
+    while !old_state.contains_key(&nums) {
+        old_state.insert(nums.clone(), steps);
         nums = redistribute(&nums);
         steps += 1;
     }
 
     println!("answer day6 part1 = {0}", steps);
+    println!("answer day6 part2 = {0}", steps - old_state.get(&nums).unwrap());
 
 }
