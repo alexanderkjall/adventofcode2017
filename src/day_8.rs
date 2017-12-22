@@ -51,6 +51,7 @@ fn main() {
         registers.insert(i.register.clone(), 0);
     }
 
+    let mut total_max = 0;
     for i in &instructions {
         match i.cond_op.as_ref() {
             "<" => {
@@ -122,7 +123,11 @@ fn main() {
             _ => {
             }
         }
+        if registers[&i.register] > total_max {
+            total_max = registers[&i.register];
+        }
     }
 
     println!("answer day8 part1 = {0}", registers.values().max().unwrap());
+    println!("answer day8 part2 = {0}", total_max);
 }
