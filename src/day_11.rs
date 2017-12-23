@@ -10,8 +10,10 @@ fn cube_distance(a:&Point, b:&Point) -> i32 {
     return ((a.x - b.x).abs() + (a.y - b.y).abs() + (a.z - b.z).abs()) / 2
 }
 
-fn calc_end(input:&String) -> Point {
+fn calc_end(input:&String) -> (Point, i32) {
     let mut start = Point { x:0, y:0, z:0 };
+
+    let mut max = 0;
 
     for st in input.split(",") {
         match st {
@@ -43,16 +45,21 @@ fn calc_end(input:&String) -> Point {
                 println!("no match! {0}", st);
             }
         }
+        let dist = cube_distance(&start, &Point { x:0, y:0, z:0 });
+        if(dist > max) {
+            max = dist;
+        }
+
     }
 
-    return start;
+    return (start, max);
 }
 
 fn main() {
     let input = input::file_to_string("day11-input");
 
-    let start = calc_end(&input);
+    let (start, max) = calc_end(&input);
 
     println!("answer day11 part1 = {0}", cube_distance(&start, &Point { x:0, y:0, z:0 }));
-
+    println!("answer day11 part2 = {0}", max);
 }
