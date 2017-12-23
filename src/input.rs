@@ -14,3 +14,7 @@ pub fn file_to_string(name: &str) -> String {
 pub fn str_to_i32_vec(input: String) -> Vec<i32> {
     return input.split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect::<Vec<i32>>();
 }
+
+pub fn str_to_i32_vec_split(input: String, split: &String) -> Vec<i32> {
+    return input.split(split).map(|x| x.parse::<i32>().unwrap()).collect::<Vec<i32>>();
+}
